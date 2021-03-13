@@ -1,5 +1,7 @@
 package ripego
 
+import "strings"
+
 func ApnicCheck(search, whoisServer string) (*WhoisInfo, error) {
 	whoisData, err := getTcpContent(search, whoisServer)
 
@@ -7,29 +9,31 @@ func ApnicCheck(search, whoisServer string) (*WhoisInfo, error) {
 		return nil, err
 	}
 
+	whoisForInformationRelate := strings.Split(whoisData, "Information related")[1]
+
 	wi := WhoisInfo{
-		Inetnum:      parseRPSLValue(whoisData, "inetnum", "inetnum"),
-		Netname:      parseRPSLValue(whoisData, "inetnum", "netname"),
-		AdminC:       parseRPSLValue(whoisData, "inetnum", "admin-c"),
-		Country:      parseRPSLValue(whoisData, "inetnum", "country"),
-		Descr:        parseRPSLValue(whoisData, "inetnum", "descr"),
-		LastModified: parseRPSLValue(whoisData, "inetnum", "changed"),
-		MntBy:        parseRPSLValue(whoisData, "inetnum", "mnt-by"),
-		MntLower:     parseRPSLValue(whoisData, "inetnum", "mnt-lower"),
-		MntRoutes:    parseRPSLValue(whoisData, "inetnum", "mnt-routes"),
-		Source:       parseRPSLValue(whoisData, "inetnum", "source"),
-		TechC:        parseRPSLValue(whoisData, "inetnum", "tech-c"),
-		Organization: parseRPSLValue(whoisData, "irt", "irt"),
+		Inetnum:      parseRPSLValue(whoisForInformationRelate, "inetnum", "inetnum"),
+		Netname:      parseRPSLValue(whoisForInformationRelate, "inetnum", "netname"),
+		AdminC:       parseRPSLValue(whoisForInformationRelate, "inetnum", "admin-c"),
+		Country:      parseRPSLValue(whoisForInformationRelate, "inetnum", "country"),
+		Descr:        parseRPSLValue(whoisForInformationRelate, "inetnum", "descr"),
+		LastModified: parseRPSLValue(whoisForInformationRelate, "inetnum", "changed"),
+		MntBy:        parseRPSLValue(whoisForInformationRelate, "inetnum", "mnt-by"),
+		MntLower:     parseRPSLValue(whoisForInformationRelate, "inetnum", "mnt-lower"),
+		MntRoutes:    parseRPSLValue(whoisForInformationRelate, "inetnum", "mnt-routes"),
+		Source:       parseRPSLValue(whoisForInformationRelate, "inetnum", "source"),
+		TechC:        parseRPSLValue(whoisForInformationRelate, "inetnum", "tech-c"),
+		Organization: parseRPSLValue(whoisForInformationRelate, "irt", "irt"),
 
 		Person: WhoisPerson{
-			Name:         parseRPSLValue(whoisData, "role", "role"),
-			AbuseMailbox: parseRPSLValue(whoisData, "irt", "abuse-mailbox"),
-			Address:      parseRPSLValue(whoisData, "role", "address"),
-			LastModified: parseRPSLValue(whoisData, "role", "changed"),
-			MntBy:        parseRPSLValue(whoisData, "role", "mnt-by"),
-			NicHdl:       parseRPSLValue(whoisData, "role", "nic-hdl"),
-			Phone:        parseRPSLValue(whoisData, "role", "phone"),
-			Source:       parseRPSLValue(whoisData, "role", "source"),
+			Name:         parseRPSLValue(whoisForInformationRelate, "role", "role"),
+			AbuseMailbox: parseRPSLValue(whoisForInformationRelate, "irt", "abuse-mailbox"),
+			Address:      parseRPSLValue(whoisForInformationRelate, "role", "address"),
+			LastModified: parseRPSLValue(whoisForInformationRelate, "role", "changed"),
+			MntBy:        parseRPSLValue(whoisForInformationRelate, "role", "mnt-by"),
+			NicHdl:       parseRPSLValue(whoisForInformationRelate, "role", "nic-hdl"),
+			Phone:        parseRPSLValue(whoisForInformationRelate, "role", "phone"),
+			Source:       parseRPSLValue(whoisForInformationRelate, "role", "source"),
 		},
 	}
 
