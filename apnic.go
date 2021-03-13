@@ -18,7 +18,7 @@ func ApnicCheck(search, whoisServer string) (*WhoisInfo, error) {
 		reversed = append(reversed, runes[i])
 	}
 
-	whoisForInformationRelate := strings.Split(string(reversed), "Information related")[1]
+	whoisForInformationRelate := strings.Split(string(reversed), "Information related")[0]
 
 	wi := WhoisInfo{
 		Inetnum:      parseRPSLValue(whoisForInformationRelate, "inetnum", "inetnum"),
