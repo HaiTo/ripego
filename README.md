@@ -7,7 +7,7 @@ This package detects the coordination center for the IPv4 address and makes IP W
 ### Install
 
 ```bash
-$ go get github.com/c1982/ripego
+$ go get github.com/haito/ripego
 ```
 
 ### Usage
