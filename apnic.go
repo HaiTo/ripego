@@ -19,30 +19,39 @@ func ApnicCheck(search, whoisServer string) (*WhoisInfo, error) {
 	}
 
 	whoisForInformationRelate := strings.Split(string(reversed), "Information related")[0]
+	reversedSpecifiedRunes := []rune(whoisForInformationRelate)
+	var reReversed []rune
+
+	for i := len(reversedSpecifiedRunes) - 1; i >= 0; i-- {
+		reReversed = append(reReversed, reversedSpecifiedRunes[i])
+	}
+
+	target := string(reReversed)
 
 	wi := WhoisInfo{
-		Inetnum:      parseRPSLValue(whoisForInformationRelate, "inetnum", "inetnum"),
-		Netname:      parseRPSLValue(whoisForInformationRelate, "inetnum", "netname"),
-		AdminC:       parseRPSLValue(whoisForInformationRelate, "inetnum", "admin-c"),
-		Country:      parseRPSLValue(whoisForInformationRelate, "inetnum", "country"),
-		Descr:        parseRPSLValue(whoisForInformationRelate, "inetnum", "descr"),
-		LastModified: parseRPSLValue(whoisForInformationRelate, "inetnum", "changed"),
-		MntBy:        parseRPSLValue(whoisForInformationRelate, "inetnum", "mnt-by"),
-		MntLower:     parseRPSLValue(whoisForInformationRelate, "inetnum", "mnt-lower"),
-		MntRoutes:    parseRPSLValue(whoisForInformationRelate, "inetnum", "mnt-routes"),
-		Source:       parseRPSLValue(whoisForInformationRelate, "inetnum", "source"),
-		TechC:        parseRPSLValue(whoisForInformationRelate, "inetnum", "tech-c"),
-		Organization: parseRPSLValue(whoisForInformationRelate, "irt", "irt"),
+		Inetnum:      parseRPSLValue(target, "inetnum", "inetnum"),
+		Netname:      parseRPSLValue(target, "inetnum", "netname"),
+		AdminC:       parseRPSLValue(target, "inetnum", "admin-c"),
+		Country:      parseRPSLValue(target, "inetnum", "country"),
+		Descr:        parseRPSLValue(target, "inetnum", "descr"),
+		LastModified: parseRPSLValue(target, "inetnum", "changed"),
+		MntBy:        parseRPSLValue(target, "inetnum", "mnt-by"),
+		MntLower:     parseRPSLValue(target, "inetnum", "mnt-lower"),
+		MntRoutes:    parseRPSLValue(target, "inetnum", "mnt-routes"),
+		Source:       parseRPSLValue(target, "inetnum", "source"),
+		TechC:        parseRPSLValue(target, "inetnum", "tech-c"),
+		Organization: parseRPSLValue(target, "irt", "irt"),
+		RawData: string(reversed),
 
 		Person: WhoisPerson{
-			Name:         parseRPSLValue(whoisForInformationRelate, "role", "role"),
-			AbuseMailbox: parseRPSLValue(whoisForInformationRelate, "irt", "abuse-mailbox"),
-			Address:      parseRPSLValue(whoisForInformationRelate, "role", "address"),
-			LastModified: parseRPSLValue(whoisForInformationRelate, "role", "changed"),
-			MntBy:        parseRPSLValue(whoisForInformationRelate, "role", "mnt-by"),
-			NicHdl:       parseRPSLValue(whoisForInformationRelate, "role", "nic-hdl"),
-			Phone:        parseRPSLValue(whoisForInformationRelate, "role", "phone"),
-			Source:       parseRPSLValue(whoisForInformationRelate, "role", "source"),
+			Name:         parseRPSLValue(target, "role", "role"),
+			AbuseMailbox: parseRPSLValue(target, "irt", "abuse-mailbox"),
+			Address:      parseRPSLValue(target, "role", "address"),
+			LastModified: parseRPSLValue(target, "role", "changed"),
+			MntBy:        parseRPSLValue(target, "role", "mnt-by"),
+			NicHdl:       parseRPSLValue(target, "role", "nic-hdl"),
+			Phone:        parseRPSLValue(target, "role", "phone"),
+			Source:       parseRPSLValue(target, "role", "source"),
 		},
 	}
 

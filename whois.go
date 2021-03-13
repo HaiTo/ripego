@@ -90,6 +90,7 @@ type WhoisInfo struct {
 	MntRoutes    string
 	Person       WhoisPerson
 	Route        WhoisRoute
+	RawData          string
 }
 
 // WhoisPerson struct for Person information from provider.
