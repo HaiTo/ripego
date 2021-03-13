@@ -1,7 +1,6 @@
 package ripego
 
 import (
-	"fmt"
 	"strings"
 )
 
@@ -12,9 +11,14 @@ func ApnicCheck(search, whoisServer string) (*WhoisInfo, error) {
 		return nil, err
 	}
 
-	whoisForInformationRelate := strings.Split(whoisData, "Information related")[1]
+	runes := []rune(whoisData)
+	var reversed []rune
 
-	fmt.Printf("parsed=%#v", whoisForInformationRelate)
+	for i := len(runes) - 1; i >= 0; i-- {
+		reversed = append(reversed, runes[i])
+	}
+
+	whoisForInformationRelate := strings.Split(string(reversed), "Information related")[1]
 
 	wi := WhoisInfo{
 		Inetnum:      parseRPSLValue(whoisForInformationRelate, "inetnum", "inetnum"),
