@@ -18,7 +18,8 @@ func ApnicCheck(search, whoisServer string) (*WhoisInfo, error) {
 		reversed = append(reversed, runes[i])
 	}
 
-	whoisForInformationRelate := strings.Split(string(reversed), "Information related")[0]
+	// reversed Information related
+	whoisForInformationRelate := strings.Split(string(reversed), "detaler noitamrofnI")[0]
 	reversedSpecifiedRunes := []rune(whoisForInformationRelate)
 	var reReversed []rune
 
